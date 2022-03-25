@@ -55,9 +55,14 @@ def top_10_most_retweeted(all_data):
     return top_10
 
   
-if __name__ == '__main__':
-    a = time.time()
+def Main():
     all_data = read_dataset()
-    print(len(all_data))
-    b = time.time() - a
-    print(b)
+    return top_10_most_retweeted(all_data)
+    #return top10_hashtags(all_data)
+    #return top_10_most_retweeted(all_data)
+    #return top_10_tweeters(all_data)
+
+if __name__ == '__main__':
+    Main()
+    
+
