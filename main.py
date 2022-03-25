@@ -1,6 +1,6 @@
 import json
 import time
-
+from operator import itemgetter
 
 
 def read_dataset():
@@ -11,6 +11,10 @@ def read_dataset():
             line = line[:len(line)-1]
             all_data.append(json.loads(line))
     return all_data
+
+def top_10_most_retweeted(all_data):
+    top_10 = sorted(all_data, key=itemgetter('retweetCount'), reverse=True)[:10]
+    return top_10
 
 
 if __name__ == '__main__':
