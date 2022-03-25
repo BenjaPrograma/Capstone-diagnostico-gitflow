@@ -1,9 +1,8 @@
 import json
 import time
-
-from dateutil import parser
 from collections import defaultdict
-
+import re
+from dateutil import parser
 from operator import itemgetter
 
 
@@ -39,6 +38,17 @@ def top_10_tweeters(all_data):
     top10 = dict(sorted(freq_dict.items(), key=lambda x:x[1], reverse=True))
     return [user_id_to_user[_id] for _id in list(top10.keys())[:10]]
 
+
+def top10_hashtags(all_data):
+    freq_dict = defaultdict(int)
+    for tweet in all_data:
+        text = tweet["content"]
+        hashtags = re.findall(r"#(\w+)", text)
+        for hash in hashtags:
+            freq_dict[hash] +=1
+    sorted_dict = dict(sorted(freq_dict.items(), key=lambda x: x[1], reverse=True))
+    return list(sorted_dict.keys())[:10]
+
   
 def top_10_most_retweeted(all_data):
     top_10 = sorted(all_data, key=itemgetter('retweetCount'), reverse=True)[:10]
@@ -51,4 +61,3 @@ if __name__ == '__main__':
     print(len(all_data))
     b = time.time() - a
     print(b)
-
